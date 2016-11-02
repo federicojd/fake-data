@@ -1,0 +1,100 @@
+<!doctype html>
+<html ng-app="rocketbiller">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Rocketcard example</title>
+  
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- Style -->
+  <style type="text/css" media="screen">
+    body{padding-top:100px;}
+    #token{
+      padding:10px;
+      text-align:center;
+      font-size: 18px;
+    }
+    .paytrace{
+      word-wrap: break-word;
+      padding: 10px;
+      margin: 10px;
+      border: 1px solid #ccc;
+      font-size: 10pt;
+      color: #666;
+    }
+  </style>
+  
+</head>
+<body>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-4 col-md-offset-4">
+        <div id="token"></div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-md-12">
+        <div id="paytrace-number" class="paytrace"></div>
+        <div id="paytrace-cvc" class="paytrace"></div>
+      </div>
+    </div>
+    
+  </div>
+  
+
+</body>
+  <!-- jQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+  <!-- Stripe - Required -->
+  <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+  <!-- Paytrace - Required -->
+  <script src="libs/paytrace-encryption.js"></script>  
+  <script src="libs/paytrace-methods.js"></script>  
+
+  <!-- Javascript -->
+  <!-- Stripe -->
+  <script type="text/javascript">
+  var creditCardData = {
+    number: "4242424242424242",
+    cvc: "123",
+    exp_month: "12",
+    exp_year: "2020"
+  };
+      
+  jQuery(function($) {
+      
+    // Publishable Key
+    Stripe.setPublishableKey('pk_test_quS5uBu666jagkkvq33fbh7Y');
+
+    // Create Token
+    Stripe.card.createToken(creditCardData, stripeResponseHandler);
+  });
+    
+  function stripeResponseHandler(status, response) {
+    var token = response.id;
+    jQuery("#token").html(token);
+  };
+
+  function generatePaytraceToken(callback) {
+    var pkey = "-----BEGIN PUBLIC KEY-----MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAu9jljQktIlfZNX55Kwy88H55p66l5FgvNxVSsWQQo7rqurmZipgwtORWruDXiSnPJGeXYYUNT/W4+YvtGIUcwQKctJ+J8ouAphHIRKfjA/k7xgcKrZlrpyKG2++t1fdNnB8F2GIrn9uamP+Rctqqr6DTIf33ui0NJektU++O/PsVeSI7Dz8klJSDAGpZbyguSb1ThFvj7Oibft3QmFonf7oIcgbsfWk/tdxD04FQ0axk3hRDh5Rh61Ew9kcL/IrhaCMYPlV8ToL4JFtJ4x8n65VWvKyOpgsrGY+MkxrLKmAD9SP9cOjEmvYIwwlUgzOSj3zgOdLnqlj7vZhf8UVkDQIDAQAB-----END PUBLIC KEY-----";
+    paytrace.setKey(pkey);
+    var paytraceEncryption = {
+      number: paytrace.encryptValue(creditCardData.number),
+      cvc: paytrace.encryptValue(creditCardData.cvc)
+    };
+    $("#paytrace-number").html(paytraceEncryption.number);
+    $("#paytrace-cvc").html(paytraceEncryption.cvc);
+  };
+    
+  generatePaytraceToken();
+    
+  </script>
+
+</html>

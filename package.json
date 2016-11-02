@@ -1,0 +1,24 @@
+{
+  "name": "fake-data",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-connect": "^5.0.0",
+    "moment": "^2.15.2",
+    "mongodb": "^2.2.11",
+    "mongodb-promise": "0.0.4",
+    "node-rest-client": "^2.0.1",
+    "phantom": "^3.0.2",
+    "phantomjs": "^2.1.7",
+    "random-ext": "^2.5.1",
+    "random-profile-generator": "^2.0.0"
+  }
+}

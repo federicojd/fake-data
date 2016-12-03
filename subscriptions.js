@@ -14,11 +14,11 @@
 // Get Token
 // http://localhost:4000/users/api/token/refresh
 // ==============================================
-let token = "rb_live_7EUqOTuVjlfmWKk59jTxFm1OERe2vw2O"
+let token = "rb_live_WXBug0tmBlrLCjxEg3oQtAg6nSuS7xsO"
 // ==============================================
 // Amount of records to be created
 // ==============================================
-var subscriptions = 1;
+var subscriptions = 100;
 
 // ==============================================
 // Nothing to be change below this line
